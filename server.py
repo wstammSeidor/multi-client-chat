@@ -39,7 +39,7 @@ def handle(client):
 
 def handle_command(msg, client):
     if msg.startswith("/help"):
-        return "/help, /time, /joke /to-all <message>, /users, /quit"
+        return "/help, /time, /joke /to-all <message>, /users, /quit or /to <username> <message>"
     elif msg.startswith("/time"):
         return str(datetime.datetime.now())
     elif msg.startswith("/joke"):
@@ -50,10 +50,10 @@ def handle_command(msg, client):
         parts = msg.split(" ", 2)  # /to user2 mensaje
         if len(parts) < 3:
             return "Usage: /to <username> <message>"
-        
+
         target_name = parts[1]
         content = parts[2]
-        
+
         if target_name in nicknames:
             target_index = nicknames.index(target_name)
             sender_index = clients.index(client)
