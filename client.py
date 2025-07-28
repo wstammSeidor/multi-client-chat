@@ -22,10 +22,22 @@ def receive():
 def write():
     while True:
         message = input()
-        if message.startswith("/"):
+        if message.startswith("/quit"):
+            client.close()
+            print("You have disconnected.")
+            break
+        elif message.startswith("/to-all"):
+            content = message[len("/to-all"):].strip()
+            client.send(f"[Broadcast] {nickname}: {content}".encode("utf-8"))
+        elif message.startswith("/"):
+            client.send(message.encode("utf-8"))
+        elif message.startswith("/to "):
             client.send(message.encode("utf-8"))
         else:
             client.send(f"{nickname}: {message}".encode("utf-8"))
+
+
+
 
 
 receive_thread = threading.Thread(target=receive)
